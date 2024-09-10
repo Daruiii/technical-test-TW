@@ -1,13 +1,14 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 
 export default function Characters() {
   const [characters, setCharacters] = useState([]);
   const [page, setPage] = useState(1);
   const [info, setInfo] = useState({});
   const [status, setStatus] = useState("");
-  const [name, setName] = useState(""); // État pour la recherche par nom
+  const [name, setName] = useState("");
 
   useEffect(() => {
     let apiUrl = `https://rickandmortyapi.com/api/character?page=${page}`;
@@ -32,7 +33,6 @@ export default function Characters() {
     <div>
       <h1>Liste des Personnages</h1>
 
-      {/* Barre de recherche */}
       <input
         type="text"
         placeholder="Rechercher un personnage"
@@ -43,7 +43,6 @@ export default function Characters() {
         }}
       />
 
-      {/* Boutons de filtrage */}
       <div>
         <button
           onClick={() => {
@@ -79,20 +78,20 @@ export default function Characters() {
         </button>
       </div>
 
-      {/* Affichage des personnages */}
       <ul>
         {characters &&
           characters.map((character) => (
             <li key={character.id}>
-              <img src={character.image} alt={character.name} />
-              <p>
-                {character.name} - {character.status}
-              </p>
+              <Link href={`/characters/${character.id}`}>
+                <img src={character.image} alt={character.name} />
+                <p>
+                  {character.name} - {character.status}
+                </p>
+              </Link>
             </li>
           ))}
       </ul>
 
-      {/* Pagination */}
       <div>
         {info && info.prev && (
           <button onClick={() => (info.prev ? setPage(page - 1) : null)}>
