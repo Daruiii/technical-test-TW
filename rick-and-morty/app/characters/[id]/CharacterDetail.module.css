@@ -1,0 +1,63 @@
+.characterDetailContainer {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .characterDetailContainer h1 {
+    color: var(--foreground);
+    margin-bottom: 20px;
+    z-index: 1;
+    transition: color 0.5s ease-in-out;
+  }
+  
+  .characterDetailContainer h1:hover {
+    color: var(--neon-purple);
+    text-shadow: 0 0 5px var(--foreground), 0 0 10px var(--foreground),
+                 0 0 15px var(--neon-purple), 0 0 20px var(--neon-purple);
+  }
+  
+  .characterDetailContainer img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto 20px;
+    border-radius: 5px;
+    animation: pulseImage 3s infinite ease-in-out;
+  }
+  
+  .characterDetailContainer p {
+    color: (var(--foreground));
+    line-height: 1.5;
+    padding: 5px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    background-color: var(--white-transparent);
+    z-index: 1;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .characterDetailContainer {
+      padding: 10px;
+    }
+  
+    .characterDetailContainer img {
+      max-width: 90%;
+    }
+  }
+  
+  @keyframes pulseImage {
+    0%, 100% {
+      filter: drop-shadow(0 0 6px var(--foreground));
+    }
+    50% {
+      filter: drop-shadow(0 0 12px var(--foreground));
+    }
+  }

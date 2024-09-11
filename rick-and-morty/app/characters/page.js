@@ -2,6 +2,10 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Navbar from "../components/Navbar";
+import CharacterCard from "../components/CharacterCard";
+import Pagination from "../components/Pagination";
+import styles from "./Characters.module.css";
 
 export default function Characters() {
   const [characters, setCharacters] = useState([]);
@@ -31,78 +35,68 @@ export default function Characters() {
 
   return (
     <div>
-      <h1>Liste des Personnages</h1>
+      <Navbar />
+      <div className={styles.pageContainer}>
+        <div className={styles.controlsContainer}>
+          <div className={styles.filters}>
+            <button
+              className={!status ? styles.active : ""}
+              onClick={() => {
+                setStatus("");
+                setPage(1);
+              }}
+            >
+              Tous
+            </button>
+            <button
+              className={status === "alive" ? styles.active : ""}
+              onClick={() => {
+                setStatus("alive");
+                setPage(1);
+              }}
+            >
+              Vivant
+            </button>
+            <button
+              className={status === "dead" ? styles.active : ""}
+              onClick={() => {
+                setStatus("dead");
+                setPage(1);
+              }}
+            >
+              Mort
+            </button>
+            <button
+              className={status === "unknown" ? styles.active : ""}
+              onClick={() => {
+                setStatus("unknown");
+                setPage(1);
+              }}
+            >
+              Inconnu
+            </button>
+          </div>
 
-      <input
-        type="text"
-        placeholder="Rechercher un personnage"
-        value={name}
-        onChange={(e) => {
-          setName(e.target.value);
-          setPage(1);
-        }}
-      />
+          <input
+            className={styles.searchBar}
+            type="text"
+            placeholder="Rechercher un personnage"
+            value={name}
+            onChange={(e) => {
+              setName(e.target.value);
+              setPage(1);
+            }}
+          />
+        </div>
 
-      <div>
-        <button
-          onClick={() => {
-            setStatus("");
-            setPage(1);
-          }}
-        >
-          Tous
-        </button>
-        <button
-          onClick={() => {
-            setStatus("alive");
-            setPage(1);
-          }}
-        >
-          Vivant
-        </button>
-        <button
-          onClick={() => {
-            setStatus("dead");
-            setPage(1);
-          }}
-        >
-          Mort
-        </button>
-        <button
-          onClick={() => {
-            setStatus("unknown");
-            setPage(1);
-          }}
-        >
-          Inconnu
-        </button>
-      </div>
+        <ul className={styles.characterGrid}>
+          {characters &&
+            characters.map((character) => (
+              <CharacterCard key={character.id} character={character} />
+            ))}
+        </ul>
 
-      <ul>
-        {characters &&
-          characters.map((character) => (
-            <li key={character.id}>
-              <Link href={`/characters/${character.id}`}>
-                <img src={character.image} alt={character.name} />
-                <p>
-                  {character.name} - {character.status}
-                </p>
-              </Link>
-            </li>
-          ))}
-      </ul>
-
-      <div>
-        {info && info.prev && (
-          <button onClick={() => (info.prev ? setPage(page - 1) : null)}>
-            Page Précédente
-          </button>
-        )}
-        {info && info.next && (
-          <button onClick={() => (info.next ? setPage(page + 1) : null)}>
-            Page Suivante
-          </button>
-        )}
+        <Pagination info={info} setPage={setPage} page={page} />
       </div>
     </div>
   );

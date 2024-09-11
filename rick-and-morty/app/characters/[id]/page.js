@@ -1,10 +1,12 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { useParams } from 'next/navigation';  // Correctement utiliser useParams
+import { useParams } from 'next/navigation';
+import styles from './CharacterDetail.module.css';
+import Navbar from '@/app/components/Navbar';
 
 export default function CharacterDetail() {
-  const { id } = useParams();  // Récupère l'ID dynamique de l'URL
+  const { id } = useParams();
   const [character, setCharacter] = useState(null);
 
   useEffect(() => {
@@ -18,7 +20,9 @@ export default function CharacterDetail() {
   if (!character) return <p>Chargement...</p>;
 
   return (
-    <div>
+    <>
+      <Navbar />
+    <div className={styles.characterDetailContainer}>
       <button onClick={() => window.history.back()}>Retour</button>
       <h1>{character.name}</h1>
       <img src={character.image} alt={character.name} />
@@ -27,5 +31,6 @@ export default function CharacterDetail() {
       <p>Genre : {character.gender}</p>
       <p>Origine : {character.origin.name}</p>
     </div>
+    </>
   );
 }

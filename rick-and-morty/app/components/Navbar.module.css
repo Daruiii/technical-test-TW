@@ -1,0 +1,65 @@
+.navbar {
+  background: none;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.navbar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -50%;
+    right: -50%;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.1); /* Plus transparent */
+    filter: blur(8px);
+    z-index: 0;
+  }
+
+.navbar a {
+  z-index: 1;
+  color: var(--foreground);
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.5s ease-in-out;
+}
+
+.navbar a:hover, .navbar a:focus {
+  color: var(--neon-purple);
+  text-shadow: 0 0 5px var(--foreground), 0 0 10px var(--foreground),
+               0 0 15px var(--neon-purple), 0 0 20px var(--neon-purple);
+}
+
+.logo img {
+  height: 40px;
+  animation: pulseLogo 3s infinite ease-in-out;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+  }
+
+  .navbar a {
+    font-size: 1rem;
+  }
+
+  .logo img {
+    height: 30px;
+  }
+}
+
+@keyframes pulseLogo {
+  0%, 100% {
+    filter: drop-shadow(0 0 6px var(--foreground));
+  }
+  50% {
+    filter: drop-shadow(0 0 12px var(--foreground));
+  }
+}

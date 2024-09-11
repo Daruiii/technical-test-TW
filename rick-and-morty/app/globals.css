@@ -3,25 +3,45 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --background: #011627;
+  --foreground: #0f0;
+  --neon-purple: #ff00ff;
+  --white-transparent: rgba(255, 255, 255, 0.1);
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  background: linear-gradient(145deg, #011627, #194263);
+  background-size: 400% 400%;
+  animation: neonBackground 30s ease infinite;
+  font-family: 'Arial', sans-serif;
+  color: white;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="none" stroke="%2300ff95" stroke-width="1" stroke-opacity="0.5"><path d="M0 1h50v50H0z"/><path d="M25 1v50M1 25h50" stroke-dasharray="4"/></svg>'); /* Taille des carreaux ajustée */
+  z-index: -1;
+}
+
+@keyframes neonBackground {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+h1, h2, h3, p, a {
+  font-family: 'Arial', sans-serif;
+  color: white;
+}
+
+@media screen and (max-width: 768px) {
+  body {
+    font-size: 0.8rem;
   }
+  
 }
